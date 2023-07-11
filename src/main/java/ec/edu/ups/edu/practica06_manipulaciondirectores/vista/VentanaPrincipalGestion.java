@@ -5,11 +5,16 @@
 package ec.edu.ups.edu.practica06_manipulaciondirectores.vista;
 
 import ec.edu.ups.edu.practica06_manipulaciondirectores.controlador.GestorArchivosControlador;
+import java.awt.List;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -21,6 +26,7 @@ import javax.swing.JTextArea;
  */
 public class VentanaPrincipalGestion extends javax.swing.JFrame {
     private GestorArchivosControlador gestorControlador;
+
 
 
 
@@ -55,6 +61,8 @@ public class VentanaPrincipalGestion extends javax.swing.JFrame {
         jListDATOS = new javax.swing.JList<>();
         jButtonINFO = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        AreaINFO = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemCrear = new javax.swing.JMenuItem();
@@ -121,64 +129,75 @@ public class VentanaPrincipalGestion extends javax.swing.JFrame {
             }
         });
 
+        AreaINFO.setColumns(20);
+        AreaINFO.setForeground(new java.awt.Color(0, 0, 0));
+        AreaINFO.setRows(5);
+        AreaINFO.setEnabled(false);
+        jScrollPane2.setViewportView(AreaINFO);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtRuta))
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
-                .addGap(239, 239, 239))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonTODO)
-                            .addComponent(jButtonAROCULTOS)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonARCHIVOS)
-                                    .addComponent(jButtonCARPETAS)))
-                            .addComponent(jButtonCAROCULTAS, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButtonTODO)
+                                .addGap(38, 38, 38)
+                                .addComponent(jButtonARCHIVOS)
+                                .addGap(61, 61, 61)
+                                .addComponent(jButtonCARPETAS)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(54, 54, 54)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jButtonINFO, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 44, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonCAROCULTAS, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jButtonAROCULTOS))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)
+                                .addComponent(jToggleButton1)
+                                .addGap(195, 195, 195)))))
+                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonINFO, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
-                .addGap(85, 85, 85)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jButtonTODO)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonARCHIVOS)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonCARPETAS)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButtonAROCULTOS)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButtonCAROCULTAS)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButtonINFO, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jToggleButton1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonTODO)
+                    .addComponent(jButtonARCHIVOS)
+                    .addComponent(jButtonCARPETAS)
+                    .addComponent(jButtonAROCULTOS)
+                    .addComponent(jButtonCAROCULTAS))
+                .addGap(38, 38, 38)
+                .addComponent(jButtonINFO, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Gestionar Directorio");
@@ -210,7 +229,7 @@ public class VentanaPrincipalGestion extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemRenombrar);
 
-        jMenuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
         jMenuItemSalir.setText("Salir");
         jMenuItemSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,17 +261,79 @@ public class VentanaPrincipalGestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSalirActionPerformed
 
     private void jButtonINFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonINFOActionPerformed
-    Object elementoSeleccionado = jListDATOS.getSelectedValue();
-    if (elementoSeleccionado == null) {
-        JOptionPane.showMessageDialog(null, "Seleccione un directorio o archivo para ver la información", "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+   Object seleccionado = jListDATOS.getSelectedValue();
 
-    if (elementoSeleccionado instanceof File) {
-        File archivo = (File) elementoSeleccionado;
-        mostrarInformacionRecursiva(archivo);
+    if (seleccionado != null && seleccionado instanceof String) {
+        String nombreArchivo = (String) seleccionado;
+        String rutaArchivo = txtRuta.getText() + File.separator + nombreArchivo;
+        File archivoCarpeta = new File(rutaArchivo);
+
+        // Borra el contenido existente del JTextArea
+        AreaINFO.setText("");
+
+        // Crea un StringBuilder para almacenar los datos a imprimir
+        StringBuilder datos = new StringBuilder();
+
+        if (archivoCarpeta.isDirectory()) {
+            // Es una carpeta
+            datos.append("Contenido de la carpeta ").append(archivoCarpeta.getName()).append(":\n");
+
+            File[] archivos = archivoCarpeta.listFiles();
+            if (archivos != null) {
+                for (File archivo : archivos) {
+                    if (archivo.isFile()) {
+                        datos.append("Nombre: ").append(archivo.getName()).append("\n");
+                        datos.append("Tamaño: ").append(obtenerTamanoArchivo(archivo)).append("\n");
+                        datos.append("Permiso de lectura: ").append(archivo.canRead() ? "Sí" : "No").append("\n");
+                        datos.append("Permiso de escritura: ").append(archivo.canWrite() ? "Sí" : "No").append("\n");
+                        datos.append("Última fecha de modificación: ").append(obtenerUltimaFechaModificacion(archivo)).append("\n");
+                        datos.append("\n");
+                    }
+                }
+            }
+        } else {
+            // Es un archivo
+            datos.append("Contenido del archivo ").append(archivoCarpeta.getName()).append(":\n");
+            datos.append("Tamaño: ").append(obtenerTamanoArchivo(archivoCarpeta)).append("\n");
+            datos.append("Permiso de lectura: ").append(archivoCarpeta.canRead() ? "Sí" : "No").append("\n");
+            datos.append("Permiso de escritura: ").append(archivoCarpeta.canWrite() ? "Sí" : "No").append("\n");
+            datos.append("Última fecha de modificación: ").append(obtenerUltimaFechaModificacion(archivoCarpeta)).append("\n");
+        }
+
+        // Agrega los datos al JTextArea existente
+        AreaINFO.append(datos.toString());
     }
+}
+
+private String obtenerTamanoArchivo(File archivo) {
+    long tamanoBytes = archivo.length();
+    double tamanoKB = tamanoBytes / 1024.0;
+    double tamanoMB = tamanoKB / 1024.0;
+    double tamanoGB = tamanoMB / 1024.0;
+
+    DecimalFormat formatoDecimal = new DecimalFormat("#.##");
+
+    if (tamanoGB >= 1) {
+        return formatoDecimal.format(tamanoGB) + " GB";
+    } else if (tamanoMB >= 1) {
+        return formatoDecimal.format(tamanoMB) + " MB";
+    } else {
+        return formatoDecimal.format(tamanoKB) + " KB";
+    }
+}
+
+private String obtenerUltimaFechaModificacion(File archivo) {
+    Path ruta = archivo.toPath();
+    try {
+        BasicFileAttributes atributos = Files.readAttributes(ruta, BasicFileAttributes.class);
+        long ultimaModificacionMillis = atributos.lastModifiedTime().toMillis();
+        Date ultimaModificacion = new Date(ultimaModificacionMillis);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatoFecha.format(ultimaModificacion);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return "";
 }
 
 private void mostrarInformacionRecursiva(File archivo) {
@@ -320,6 +401,7 @@ private void mostrarInformacionDirectorio(File directorio) {
     }//GEN-LAST:event_jButtonTODOActionPerformed
 
     private void jMenuItemCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearActionPerformed
+        DefaultListModel<String> modeloLista = (DefaultListModel<String>) jListDATOS.getModel();
         String ruta = txtRuta.getText().replaceAll("\\\\", "\\\\\\\\");       
         if (ruta.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese una ruta válida", "Error", JOptionPane.ERROR_MESSAGE);
@@ -337,8 +419,15 @@ private void mostrarInformacionDirectorio(File directorio) {
 
             if (esArchivo) {
                 gestorControlador.crearArchivo(nombre);
+                String nuevoElemento = nombre; 
+                 modeloLista.addElement(nuevoElemento);
+                     jListDATOS.setModel(modeloLista);
             } else {
                 gestorControlador.crearDirectorio(nombre);
+                String nuevoElemento = nombre; 
+                 modeloLista.addElement(nuevoElemento);
+                     jListDATOS.setModel(modeloLista);
+                
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre válido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -354,7 +443,9 @@ private void mostrarInformacionDirectorio(File directorio) {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jMenuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEliminarActionPerformed
+DefaultListModel<String> modeloLista = (DefaultListModel<String>) jListDATOS.getModel();
 String elementoSeleccionado = jListDATOS.getSelectedValue();
+
 if (elementoSeleccionado == null) {
     JOptionPane.showMessageDialog(null, "Seleccione un directorio o archivo para eliminar", "Error",
             JOptionPane.ERROR_MESSAGE);
@@ -363,10 +454,13 @@ if (elementoSeleccionado == null) {
 
 int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el elemento seleccionado?",
         "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
 if (confirmacion == JOptionPane.YES_OPTION) {
     if (gestorControlador.eliminarArchivo(elementoSeleccionado)) {
+        modeloLista.removeElement(elementoSeleccionado);
         JOptionPane.showMessageDialog(null, "Archivo eliminado exitosamente");
     } else if (gestorControlador.eliminarDirectorio(elementoSeleccionado)) {
+        modeloLista.removeElement(elementoSeleccionado);
         JOptionPane.showMessageDialog(null, "Directorio eliminado exitosamente");
     } else {
         JOptionPane.showMessageDialog(null, "No se pudo eliminar el archivo o directorio", "Error",
@@ -377,48 +471,41 @@ if (confirmacion == JOptionPane.YES_OPTION) {
     }//GEN-LAST:event_jMenuItemEliminarActionPerformed
 
     private void jMenuItemRenombrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRenombrarActionPerformed
- Object elementoSeleccionado = jListDATOS.getSelectedValue();
-    if (elementoSeleccionado == null) {
-        JOptionPane.showMessageDialog(null, "Seleccione un directorio o archivo para renombrar", "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+ String rutaActual = txtRuta.getText();
+        DefaultListModel<String> model = (DefaultListModel<String>) jListDATOS.getModel();
+        String selectedItem = jListDATOS.getSelectedValue();
 
-    String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre:");
-    if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
-        String ruta = txtRuta.getText();
-        gestorControlador.setRutaActual(ruta);
-        
-        if (elementoSeleccionado instanceof File) {
-            File archivo = (File) elementoSeleccionado;
-            if (archivo.isFile()) {
-                Path rutaArchivo = archivo.toPath();
-                Path nuevaRutaArchivo = rutaArchivo.resolveSibling(nuevoNombre);
-                try {
-                    Files.move(rutaArchivo, nuevaRutaArchivo);
-                    JOptionPane.showMessageDialog(null, "Archivo renombrado exitosamente");
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "No se pudo renombrar el archivo", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } else if (archivo.isDirectory()) {
-                File directorioPadre = archivo.getParentFile();
-                if (directorioPadre != null) {
-                    Path rutaDirectorio = archivo.toPath();
-                    Path nuevaRutaDirectorio = rutaDirectorio.resolveSibling(nuevoNombre);
-                    try {
-                        Files.move(rutaDirectorio, nuevaRutaDirectorio);
-                        JOptionPane.showMessageDialog(null, "Directorio renombrado exitosamente");
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "No se pudo renombrar el directorio", "Error",
-                                JOptionPane.ERROR_MESSAGE);
+        if (selectedItem != null) {
+            String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre:");
+            if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+                File selectedFile = new File(rutaActual, selectedItem);
+                File newFile = new File(rutaActual, nuevoNombre);
+
+                if (selectedFile.isDirectory()) {
+                    if (selectedFile.renameTo(newFile)) {
+                        refreshFileList(model, rutaActual); 
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo renombrar el directorio.");
+                    }
+                } else {
+                    String extension = obtenerExtension(selectedFile.getName());
+                    File newFileWithExtension = new File(rutaActual, nuevoNombre + extension);
+
+                    if (selectedFile.renameTo(newFileWithExtension)) {
+                        refreshFileList(model, rutaActual); 
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo renombrar el archivo.");
                     }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se proporcionó un nuevo nombre.");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se seleccionó ningún archivo o carpeta.");
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "Ingrese un nuevo nombre válido", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    
+
+
     }//GEN-LAST:event_jMenuItemRenombrarActionPerformed
 
     private void jButtonARCHIVOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonARCHIVOSActionPerformed
@@ -501,6 +588,34 @@ if (confirmacion == JOptionPane.YES_OPTION) {
     }
     }//GEN-LAST:event_jButtonCAROCULTASActionPerformed
 
+    private void refreshFileList(DefaultListModel<String> model, String rutaActual) {
+        // Actualizar la lista de documentos
+        model.clear();
+        File directory = new File(rutaActual);
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    model.addElement(file.getName());
+                }
+            }
+        }
+    }
+    
+    private String obtenerExtension(String nombreArchivo) {
+      int indicePunto = nombreArchivo.lastIndexOf(".");
+        if (indicePunto != -1) {
+            return nombreArchivo.substring(indicePunto);
+        } else {
+            return "";
+        }
+      }
+
+   
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -537,6 +652,7 @@ if (confirmacion == JOptionPane.YES_OPTION) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea AreaINFO;
     private javax.swing.JButton jButtonARCHIVOS;
     private javax.swing.JButton jButtonAROCULTOS;
     private javax.swing.JButton jButtonCAROCULTAS;
@@ -553,6 +669,7 @@ if (confirmacion == JOptionPane.YES_OPTION) {
     private javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTextField txtRuta;
     // End of variables declaration//GEN-END:variables

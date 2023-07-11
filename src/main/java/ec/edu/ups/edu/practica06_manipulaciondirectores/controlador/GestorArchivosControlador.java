@@ -42,13 +42,24 @@ public class GestorArchivosControlador {
         return modelo.eliminarDirectorio(nombre);
     }
 
-    public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
-        return modelo.renombrarArchivo(nombreAnterior, nuevoNombre);
+ public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
+    File file = new File(nombreAnterior);
+    if (file.exists() && file.isFile()) {
+        modelo.renombrarArchivo(file, nuevoNombre);
+        return true;
+    } else {
+        return false;
     }
+}
 
-    public boolean renombrarDirectorio(String nombreAnterior, String nuevoNombre) {
-        return modelo.renombrarDirectorio(nombreAnterior, nuevoNombre);
+public boolean renombrarDirectorio(File directory, String nuevoNombre) {
+    if (directory.exists() && directory.isDirectory()) {
+        modelo.renombrarDirectorio(directory, nuevoNombre);
+        return true;
+    } else {
+        return false;
     }
+}
 
     public File[] obtenerArchivos(String ruta) {
         modelo.setRutaActual(ruta);
@@ -148,14 +159,7 @@ public class GestorArchivosControlador {
     }
 
 
-public double obtenerTamañoEnGB(long bytes) {
-    double kilobytes = bytes / 1024.0;
-    double megabytes = kilobytes / 1024.0;
-    double gigabytes = megabytes / 1024.0;
-    
-    // Redondear a dos decimales
-    return Math.round(gigabytes * 100.0) / 100.0;
-}
+
 
 }
 

@@ -76,33 +76,57 @@ public class GestorArchivosModelo {
 
         return directorio.delete();
     }
-     
-public boolean renombrarArchivo(String nombreAnterior, String nuevoNombre) {
-    File archivoAnterior = new File(rutaActual, nombreAnterior);
-    File archivoNuevo = new File(rutaActual, nuevoNombre);
-    try {
-        Path rutaAnterior = archivoAnterior.toPath();
-        Path rutaNueva = archivoNuevo.toPath();
-        Files.move(rutaAnterior, rutaNueva, StandardCopyOption.REPLACE_EXISTING);
-        return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
-    }
-}
+    
 
-public boolean renombrarDirectorio(String nombreAnterior, String nuevoNombre) {
-    File directorioAnterior = new File(rutaActual, nombreAnterior);
-    File directorioNuevo = new File(rutaActual, nuevoNombre);
-    try {
-        Path rutaAnterior = directorioAnterior.toPath();
-        Path rutaNueva = directorioNuevo.toPath();
-        Files.move(rutaAnterior, rutaNueva, StandardCopyOption.REPLACE_EXISTING);
-        return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
+        public static void renombrarDirectorio(File directory, String nuevoNombre) {
+        if (directory.isDirectory()) {
+            String rutaActual = directory.getParent();
+            String nuevoNombreDirectorio = nuevoNombre;
+
+            File newDirectory = new File(rutaActual, nuevoNombreDirectorio);
+            directory.renameTo(newDirectory);
+
+            File[] subDirectories = newDirectory.listFiles();
+            if (subDirectories != null) {
+                for (File subDirectory : subDirectories) {
+                    renombrarDirectorio(subDirectory, nuevoNombre);
+                }
+            }
+
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        String nombreArchivo = file.getName();
+                        String extension = obtenerExtension(nombreArchivo);
+                        String nuevoNombreArchivo = nuevoNombre + extension;
+                        File newFile = new File(newDirectory, nuevoNombreArchivo);
+                        file.renameTo(newFile);
+                    }
+                }
+            }
+        }
+    }
+
+    private static String obtenerExtension(String nombreArchivo) {
+        int indicePunto = nombreArchivo.lastIndexOf(".");
+        if (indicePunto != -1) {
+            return nombreArchivo.substring(indicePunto);
+        } else {
+            return "";
+        }
+    }
+
+    public static void renombrarArchivo(File file, String nuevoNombre) {
+        if (file.isFile()) {
+            String rutaActual = file.getParent();
+            String nuevoNombreArchivo = nuevoNombre;
+            
+            File newFile = new File(rutaActual, nuevoNombreArchivo);
+            file.renameTo(newFile);
+        }
     }
 }
-}
+    
+
 
